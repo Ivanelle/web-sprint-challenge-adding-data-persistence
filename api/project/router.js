@@ -1,6 +1,7 @@
 // build your `/api/projects` router here
 const router = require('express').Router()
 const Project = require('./model')
+const { validatePayload } = require('./middleware')
 
 router.get('/', (req, res, next) => {
     Project.getProjects()
@@ -10,8 +11,25 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', validatePayload, async (req, res, next) => {
+ const {
+    project_name,
+    project_description,
+    project_completed
+ } = req.body
 
+ 
+ try {
+    const newProject = await Project.addProject({
+        project_name,
+        project_description,
+        project_completed
+    })
+     res.status(201).json(newProject)
+
+ } catch(err) {
+    next(err)
+ }
 })
 
 router.use((err, req, res, next) => {
