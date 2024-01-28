@@ -2,7 +2,7 @@
 const db = require('../../data/dbConfig')
 
 function getProjects() {
- return Promise.resolve('heres all your projects')
+ return db('projects');
 }
 
 module.exports = {

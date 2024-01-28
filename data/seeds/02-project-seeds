@@ -1,0 +1,91 @@
+const projects = [
+    {
+        project_name: 'Build a Time Machine', 
+        project_description: 'Construct a time-travel device using household items.',
+        project_completed: 0
+    },
+    {
+        project_name: 'Make Exploding Volcano', 
+        project_description: 'Create a realistic volcanic eruption for a science fair project.',
+        project_completed: 0
+    },
+    {
+        project_name: 'Compose Symphony for Whales', 
+        project_description: 'Write a musical masterpiece specifically for whales to enjoy.',
+        project_completed: 1
+    },
+]
+
+const resources = [
+    //Build Time Machine
+    {
+        resource_name:'Time Machine Parts Kit',
+        resource_description: 'A kit containing essential components for building a time machine.'
+    },
+    //Volcano
+    {
+        resource_name:'Volcanic Eruption Simulator',
+        resource_description: 'A simulator that helps create realistic volcanic eruptions for science projects.'
+    },
+    //Whales
+    {
+        resource_name:'Whale Communication Handbook',
+        resource_description: 'A comprehensive guide on whale communication to aid in composing a whale-friendly melody.'
+    }
+]
+
+const tasks = [
+    //build time machine (1)
+    {
+        task_description: 'Set up Flux Capacitor', 
+        task_notes: 'Ensure the flux capacitor is properly calibrated for time travel.', 
+        task_completed: 0,
+        project_id: 1
+    },
+    //make volcano(2)
+    {
+        task_description: 'Create Realistic Lava Effect', 
+        task_notes: 'Experiment with materials to achieve a realistic lava flow for the volcano.', 
+        task_completed: 0,
+        project_id: 2
+    },
+    //Compose whale symphony(3)
+    {
+        task_description: 'Compose Whale-Friendly Melody', 
+        task_notes: 'Research whale communication and compose a musical piece they would enjoy.', 
+        task_completed: 0,
+        project_id: 3
+    },
+]
+
+const project_resources = [
+    {
+        hours_allocated: 25,
+        assignment_start_date: '2022-03-15',
+        assignment_end_date: '2022-03-30',
+        project_id: 1,
+        resource_id: 1
+    },
+    {
+        hours_allocated: 15,
+        assignment_start_date: '2022-03-01',
+        assignment_end_date: '2022-04-30',
+        project_id: 2,
+        resource_id: 2
+    },
+    {
+        hours_allocated: 20,
+        assignment_start_date: '2022-05-01',
+        assignment_end_date: '2022-05-20',
+        project_id: 3,
+        resource_id: 3
+    },
+
+]
+
+exports.seed = async function (knex) {
+    await knex('projects').insert(projects)
+    await knex('resources').insert(resources)
+    await knex('tasks').insert(tasks)
+    await knex('project_resources').insert(project_resources)
+}
