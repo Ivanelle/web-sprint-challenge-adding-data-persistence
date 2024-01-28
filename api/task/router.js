@@ -13,7 +13,7 @@ router.post('/', (req, res, next) => {
 
 router.use((err, req, res, next) => {
     res.status(500).json({
-        custMsg: 'something went wrong inside projects router',
+        custMsg: 'something went wrong inside task router',
         message: err.message,
         stack: err.stack
     })
