@@ -1,7 +1,8 @@
 const Project = require('./model')
 
+
 function validatePayload (req, res, next) {
-    const { project_name, project_completed } = req.body
+    const { project_name } = req.body
 
     try {
         if(!project_name || project_name === undefined) {
@@ -13,7 +14,7 @@ function validatePayload (req, res, next) {
         }
     } catch(err) {
         next(err)
-    }
+        }
     }
 
 
