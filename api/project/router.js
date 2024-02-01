@@ -20,6 +20,7 @@ router.post('/', validatePayload, async (req, res, next) => {
         project_description,
         project_completed
     } = req.body
+
  try {
     const newProject = await Project.addProject({
         project_name,
