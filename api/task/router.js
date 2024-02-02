@@ -2,6 +2,7 @@
 
 const router = require('express').Router()
 const Task = require('./model')
+const { validateTask } = require('./middleware')
 
 router.get('/', (req, res, next) => {
     Task.getAllTasks()
@@ -11,7 +12,7 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
-router.post('/', (req, res, next) => {
+router.post('/', validateTask, (req, res, next) => {
 
 })
 
