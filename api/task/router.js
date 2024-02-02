@@ -13,14 +13,28 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', validateTask, async (req, res, next) => {
-    
+    const {
+        task_id,
+        task_description, 
+        task_notes, 
+        task_completed,
+        project_id
+    } = req.body
+
     try {
-        const newTask = await Task.addTask(req.body)
+        const newTask = await Task.addTask({
+            task_id,
+            task_description,
+            task_notes,
+            task_completed,
+            project_id
+        })
             res.status(201).json(newTask)
-        
+        next()
 
     } catch(err) {
-        next(err)
+        console.error('Error adding task', err)
+        next()
     }
 })
 
