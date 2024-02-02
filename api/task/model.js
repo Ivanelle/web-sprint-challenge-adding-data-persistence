@@ -21,6 +21,41 @@ function getAllTasks() {
         })
 }
 
+async function addTask(task) {
+    try {
+        const [newTask] = await db('tasks')
+            .insert(task)
+            .returning('*')
+        
+        const isValidProjectId = await db('projects')
+            .where('project_id', newTask.project_id)
+            .first()
+
+        if(!isValidProjectId) {
+            await db('tasks')
+                .where('task_id', newTask.task_id)
+                throw new Error('Invalid project id')
+        }
+
+        const [project] = await db('projects')
+            .select(
+                'project_name',
+                'project_description'
+            )
+            .where('project_id', newTask.project_id)
+
+            newTask.project_name = project.project_name
+            newTask.project_description = project.project_description
+            newTask.task_completed = Boolean(newTask.task_completed)
+
+            return newTask
+            
+    } catch(err) {
+        console.error('Error adding task:', err)
+    }
+}
+
 module.exports = {
-    getAllTasks
+    getAllTasks,
+    addTask
 }

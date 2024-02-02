@@ -12,9 +12,18 @@ router.get('/', (req, res, next) => {
         .catch(next)
 })
 
-router.post('/', validateTask, (req, res, next) => {
+router.post('/', validateTask, async (req, res, next) => {
+    
+    try {
+        const newTask = await Task.addTask(req.body)
+            res.status(201).json(newTask)
+        
 
+    } catch(err) {
+        next(err)
+    }
 })
+
 
 router.use((err, req, res, next) => {
     res.status(500).json({
